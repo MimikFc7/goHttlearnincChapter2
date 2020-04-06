@@ -51,4 +51,16 @@ func (self *pgconnector) OpenConnect() {
 	self.Db = db
 	self.Connected = true
 	fmt.Println("Successfully connected!")
+
+	/*
+		по хорошему здесь надо сделать вывод определений табличек в описанные типы, чтобы автоматом создавать все относительно типов,
+		хотелось бы понять как это сделать, чтобы можно было при создании нового типа автоматом создавать его в бд если такого нет.
+
+	*/
+	result, errs := db.Exec("CREATE TABLE IF NOT EXISTS public.users ( id uuid,name varchar(255),lastname varchar(255), age int, birthdate bigint);")
+	if errs != nil {
+		fmt.Println(errs)
+	}
+	fmt.Println(result)
+
 }
